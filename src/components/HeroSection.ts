@@ -6,8 +6,8 @@ export function createHeroSection(): HTMLElement {
   section.innerHTML = `
     <div class="hero-content">
       <h1>METBrandVoice</h1>
-      <h2>La plus belle voix de marque</h2>
-      <p>Le show qui transforme la publicité en art, révélant les talents voix-off et offrant aux marques une scène émotionnelle unique.</p>
+      <h2>See Beyond Advertising</h2>
+      <p>Le show qui transcende la publicité en révélant les talents voix‑off et en offrant aux marques une scène immersive.</p>
       <button class="cta" id="hero-contact-btn">Contactez-nous</button>
     </div>
     <div class="hero-image img-placeholder"></div>

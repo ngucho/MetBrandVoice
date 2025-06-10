@@ -1,6 +1,6 @@
 // src/components/FinancialTable.ts
 
-import { FinancialSheet, FinancialRow, FinancialPlanData } from '../types/financialPlan';
+import { FinancialSheet, FinancialPlanData } from '../types/financialPlan';
 import { updateAllCalculations, downloadFinancialExcel } from '../features/financialPlan';
 
 export function createFinancialDashboard(data: FinancialPlanData): HTMLElement {
@@ -59,7 +59,6 @@ export function createFinancialSheet(sheet: FinancialSheet): HTMLElement {
     th.innerText = col;
     headerRow.appendChild(th);
   });
-  headerRow.appendChild(document.createElement('th')).innerText = ""; // Pour le bouton "Supprimer"
   thead.appendChild(headerRow);
   table.appendChild(thead);
 
@@ -67,59 +66,18 @@ export function createFinancialSheet(sheet: FinancialSheet): HTMLElement {
   const tbody = document.createElement('tbody');
   table.appendChild(tbody);
 
-  function renderRows() {
-    tbody.innerHTML = '';
-    sheet.rows.forEach((row, rowIndex) => {
-      const tr = document.createElement('tr');
-      sheet.columns.forEach((col, colIndex) => {
-        const td = document.createElement('td');
-        td.contentEditable = (row.editable !== false).toString();
-        td.innerText = row.values[colIndex] ?? '';
-        td.className = colIndex > 0 ? 'number' : '';
-        td.addEventListener('input', () => {
-          row.values[colIndex] = td.innerText;
-          updateAllCalculations();
-        });
-        tr.appendChild(td);
-      });
-      // Bouton supprimer
-      const tdDel = document.createElement('td');
-      if (row.removable !== false) {
-        const btnDel = document.createElement('button');
-        btnDel.textContent = "❌";
-        btnDel.style.fontSize = "1rem";
-        btnDel.style.background = "none";
-        btnDel.style.border = "none";
-        btnDel.style.cursor = "pointer";
-        btnDel.onclick = () => {
-          sheet.rows.splice(rowIndex, 1);
-          renderRows();
-          updateAllCalculations();
-        };
-        tdDel.appendChild(btnDel);
-      }
-      tr.appendChild(tdDel);
-      tbody.appendChild(tr);
+  sheet.rows.forEach(row => {
+    const tr = document.createElement('tr');
+    row.values.forEach((val, colIndex) => {
+      const td = document.createElement('td');
+      td.textContent = val;
+      td.className = colIndex > 0 ? 'number' : '';
+      tr.appendChild(td);
     });
-  }
-  renderRows();
-
-  // Bouton Ajouter
-  const addBtn = document.createElement('button');
-  addBtn.className = 'cta';
-  addBtn.textContent = "+ Ajouter une ligne";
-  addBtn.style.margin = "0.6rem 0";
-  addBtn.onclick = () => {
-    sheet.rows.push({
-      values: Array(sheet.columns.length).fill(""),
-      editable: true,
-      removable: true,
-    });
-    renderRows();
-  };
+    tbody.appendChild(tr);
+  });
 
   container.appendChild(table);
-  container.appendChild(addBtn);
 
   return container;
 }
