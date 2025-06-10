@@ -63,17 +63,17 @@ export function renderHome(root: HTMLElement | null) {
     {
       title: 'Talents voix-off',
       content: 'Révélez votre don et rencontrez des marques prêtes à vous confier leur identité sonore.',
-      icon: '🎤'
+      icon: 'microphone.png'
     },
     {
       title: 'Marques & annonceurs',
       content: 'Mesurez l’impact de votre identité par la voix, dans un format participatif et immersif.',
-      icon: '🏷️'
+      icon: 'office.png'
     },
     {
       title: 'Public',
       content: 'Devenez jury, votez en direct, pariez, gagnez et vivez la pub autrement.',
-      icon: '👥'
+      icon: 'audience.png'
     }
   ];
   const cibleElements = cibleCards.map(c => createCard(c));

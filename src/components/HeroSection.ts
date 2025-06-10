@@ -6,7 +6,7 @@ export function createHeroSection(): HTMLElement {
   section.innerHTML = `
     <div class="hero-bg">
       <div id="vanta-bg"></div>
-      <video class="hero-video" src="https://cdn.prod.website-files.com/679d8b01c23ed7847fc5108f/681a5d6a393040f8a64f2175_topaz_hero-transcode.mp4" autoplay muted loop playsinline></video>
+      <video class="hero-video" src="/assets/video/video-2.mp4" autoplay muted loop playsinline></video>
       <div class="hero-overlay"></div>
     </div>
     <div class="hero-content">
@@ -15,8 +15,8 @@ export function createHeroSection(): HTMLElement {
         <input type="email" name="heroEmail" placeholder="Votre email" required />
         <button class="cta" id="hero-contact-btn" type="submit">Get in touch</button>
       </form>
-      <img src="/assets/logo.png.png" class="hero-logo" alt="logo" />
-    </div>`;
+    </div>
+    <img src="/assets/logo.png" class="hero-logo" alt="logo" />`;
   // Add event listener for smooth scroll
   setTimeout(() => {
     const form = section.querySelector<HTMLFormElement>('#hero-form');

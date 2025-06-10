@@ -262,7 +262,6 @@ form#contactForm {
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
-  max-width: 480px;
   margin: 0 auto;
 }
 form#contactForm label {
@@ -280,9 +279,10 @@ form#contactForm input, form#contactForm textarea {
   color: var(--color-white);
   resize: none;
   box-shadow: 0 1.5px 6px #0002;
+  width: 100%;  
 }
-form#contactForm textarea { min-height: 100px; }
-form#contactForm label.message textarea { min-height: 140px; }
+form#contactForm textarea { min-height: 100px; width: 100%;}
+form#contactForm label.message textarea { min-height: 140px; width: 100%;}
 form#contactForm input:focus, form#contactForm textarea:focus {
   outline: 2px solid var(--color-gold);
 }
@@ -292,7 +292,7 @@ form#contactForm input:focus, form#contactForm textarea:focus {
 }
 .contact-section form#contactForm {
   width: 100%;
-  max-width: 520px;
+  max-width: 800px;
 }
 
 /* Footer */
