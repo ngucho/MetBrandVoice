@@ -6,6 +6,8 @@ export function createHeroSection(): HTMLElement {
   section.innerHTML = `
     <div class="hero-bg">
       <div id="vanta-bg"></div>
+      <video class="hero-video" src="https://cdn.prod.website-files.com/679d8b01c23ed7847fc5108f/681a5d6a393040f8a64f2175_topaz_hero-transcode.mp4" autoplay muted loop playsinline></video>
+      <div class="hero-overlay"></div>
     </div>
     <div class="hero-content">
       <h1>Rejoignez l'aventure !</h1>
@@ -14,15 +16,12 @@ export function createHeroSection(): HTMLElement {
         <button class="cta" id="hero-contact-btn" type="submit">Get in touch</button>
       </form>
       <img src="/assets/logo.png.png" class="hero-logo" alt="logo" />
+    </div>`;
+  // Add event listener for smooth scroll
+  setTimeout(() => {
     const form = section.querySelector<HTMLFormElement>('#hero-form');
     form?.addEventListener('submit', (e) => {
       e.preventDefault();
-}
-
-  // Add event listener for smooth scroll
-  setTimeout(() => {
-    const btn = section.querySelector<HTMLButtonElement>('#hero-contact-btn');
-    btn?.addEventListener('click', () => {
       const contact = document.getElementById('contact');
       if (contact) contact.scrollIntoView({ behavior: 'smooth' });
     });
@@ -50,3 +49,4 @@ export function createHeroSection(): HTMLElement {
   }, 0);
   return section;
 }
+

@@ -37,17 +37,14 @@ export function renderHome(root: HTMLElement | null) {
     {
       title: "Pour les talents",
       content: "Exposez votre voix, gagnez en visibilité et signez avec des marques.",
-      title: 'Talents voix-off',
-      content: 'Révélez votre don et rencontrez des marques prêtes à vous confier leur identité sonore.',
-      icon: 'talent.svg'
+      bgImage: "/assets/img/microphone.jpg"
+    },
     {
-      title: 'Marques & annonceurs',
-      content: 'Mesurez l’impact de votre identité par la voix, dans un format participatif et immersif.',
-      icon: 'brand.svg'
-      title: 'Public',
-      content: 'Devenez jury, votez en direct, pariez, gagnez et vivez la pub autrement.',
-      icon: 'audience.svg'
-}
+      title: "Pour les marques",
+      content: "Testez l'impact réel de votre message grâce à la voix, avec feedback instantané.",
+      bgImage: "/assets/img/branding.jpg"
+    },
+    {
       title: "Pour le public",
       content: "Votez, pariez, gagnez des lots et devenez acteur du show.",
       bgImage: "/assets/img/audience.jpg"
@@ -64,16 +61,19 @@ export function renderHome(root: HTMLElement | null) {
   // Pour qui ?
   const cibleCards: CardOptions[] = [
     {
-      title: '🎤 Talents voix-off',
-      content: 'Révélez votre don et rencontrez des marques prêtes à vous confier leur identité sonore.'
+      title: 'Talents voix-off',
+      content: 'Révélez votre don et rencontrez des marques prêtes à vous confier leur identité sonore.',
+      icon: '🎤'
     },
     {
-      title: '🏷️ Marques & annonceurs',
-      content: 'Mesurez l’impact de votre identité par la voix, dans un format participatif et immersif.'
+      title: 'Marques & annonceurs',
+      content: 'Mesurez l’impact de votre identité par la voix, dans un format participatif et immersif.',
+      icon: '🏷️'
     },
     {
-      title: '👥 Public',
-      content: 'Devenez jury, votez en direct, pariez, gagnez et vivez la pub autrement.'
+      title: 'Public',
+      content: 'Devenez jury, votez en direct, pariez, gagnez et vivez la pub autrement.',
+      icon: '👥'
     }
   ];
   const cibleElements = cibleCards.map(c => createCard(c));
