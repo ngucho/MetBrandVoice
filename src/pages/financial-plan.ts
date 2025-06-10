@@ -6,6 +6,7 @@ import { createFinancialDashboard, createFinancialSheet } from '../components/Fi
 import { financialPlanData, updateAllCalculations } from '../features/financialPlan';
 import { setupSectionObserver } from '../utils/animations';
 
+
 export function renderFinancialPlan(root: HTMLElement | null) {
   if (!root) return;
   root.innerHTML = '';
