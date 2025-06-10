@@ -3,7 +3,8 @@
 import { createNavbar } from '../components/Navbar';
 import { createFooter } from '../components/Footer';
 import { createFinancialDashboard, createFinancialSheet } from '../components/FinancialTable';
-import { financialPlanData } from '../features/financialPlan';
+import { financialPlanData, updateAllCalculations } from '../features/financialPlan';
+import { setupSectionObserver } from '../utils/animations';
 
 export function renderFinancialPlan(root: HTMLElement | null) {
   if (!root) return;
@@ -17,8 +18,8 @@ export function renderFinancialPlan(root: HTMLElement | null) {
   title.className = 'hero';
   title.innerHTML = `
     <h1>Prévisionnel Financier METBrandVoice</h1>
-    <h2>Étudiez, modifiez, exportez votre business model en temps réel</h2>
-    <p>Interagissez avec toutes les hypothèses, revenus, coûts, scénarios, et bien plus. Ajoutez ou supprimez des postes pour coller à votre réalité, exportez votre modèle personnalisé au format Excel.</p>
+    <h2>Découvrez notre modèle économique</h2>
+    <p>Consultez les principales hypothèses, revenus, coûts et scénarios pour comprendre la viabilité du concept. Exportez le tout au format Excel.</p>
   `;
   root.appendChild(title);
 
@@ -30,6 +31,11 @@ export function renderFinancialPlan(root: HTMLElement | null) {
     root.appendChild(createFinancialSheet(sheet))
   );
 
+  // Calculs initiaux
+  updateAllCalculations();
+
   // Footer
   root.appendChild(createFooter());
+
+  setupSectionObserver();
 }
