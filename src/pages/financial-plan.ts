@@ -4,6 +4,8 @@ import { createNavbar } from '../components/Navbar';
 import { createFooter } from '../components/Footer';
 import { createFinancialDashboard, createFinancialSheet } from '../components/FinancialTable';
 import { financialPlanData, updateAllCalculations } from '../features/financialPlan';
+import { setupSectionObserver } from '../utils/animations';
+
 
 export function renderFinancialPlan(root: HTMLElement | null) {
   if (!root) return;
@@ -35,4 +37,6 @@ export function renderFinancialPlan(root: HTMLElement | null) {
 
   // Footer
   root.appendChild(createFooter());
+
+  setupSectionObserver();
 }

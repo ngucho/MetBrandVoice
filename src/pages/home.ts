@@ -6,6 +6,7 @@ import { createGrid } from '../components/Grid';
 import { createContactForm } from '../components/ContactForm';
 import { createFooter } from '../components/Footer';
 import { SectionOptions, CardOptions } from '../types/index.d';
+import { setupSectionObserver } from '../utils/animations';
 
 export function renderHome(root: HTMLElement | null) {
   if (!root) return;
@@ -80,4 +81,6 @@ export function renderHome(root: HTMLElement | null) {
 
   // Footer
   root.appendChild(createFooter());
+
+  setupSectionObserver();
 }
