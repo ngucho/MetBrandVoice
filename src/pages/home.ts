@@ -17,7 +17,7 @@ export function renderHome(root: HTMLElement | null) {
 
   // Concept Section
   const conceptImg = document.createElement('img');
-  conceptImg.src = '/public/assets/img/image-01.png';
+  conceptImg.src = '/assets/img/image-01.png';
   conceptImg.alt = 'Concept';
   const conceptText = document.createElement('div');
   conceptText.innerHTML = `
@@ -37,17 +37,17 @@ export function renderHome(root: HTMLElement | null) {
     {
       title: "Pour les talents",
       content: "Exposez votre voix, gagnez en visibilité et signez avec des marques.",
-      bgImage: "https://source.unsplash.com/featured/?microphone"
+      bgImage: "/assets/img/microphone.jpg"
     },
     {
       title: "Pour les marques",
       content: "Testez l'impact réel de votre message grâce à la voix, avec feedback instantané.",
-      bgImage: "https://source.unsplash.com/featured/?branding"
+      bgImage: "/assets/img/branding.jpg"
     },
     {
       title: "Pour le public",
       content: "Votez, pariez, gagnez des lots et devenez acteur du show.",
-      bgImage: "https://source.unsplash.com/featured/?audience"
+      bgImage: "/assets/img/audience.jpg"
     }
   ];
   const cards = valeurs.map(val => createCard(val));
@@ -63,17 +63,17 @@ export function renderHome(root: HTMLElement | null) {
     {
       title: 'Talents voix-off',
       content: 'Révélez votre don et rencontrez des marques prêtes à vous confier leur identité sonore.',
-      icon: 'talent.svg'
+      icon: '🎤'
     },
     {
       title: 'Marques & annonceurs',
       content: 'Mesurez l’impact de votre identité par la voix, dans un format participatif et immersif.',
-      icon: 'brand.svg'
+      icon: '🏷️'
     },
     {
       title: 'Public',
       content: 'Devenez jury, votez en direct, pariez, gagnez et vivez la pub autrement.',
-      icon: 'audience.svg'
+      icon: '👥'
     }
   ];
   const cibleElements = cibleCards.map(c => createCard(c));
