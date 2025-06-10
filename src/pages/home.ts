@@ -19,8 +19,10 @@ export function renderHome(root: HTMLElement | null) {
     id: "concept",
     title: "Un concept inédit",
     content: `
+      <div class="img-placeholder"></div>
       <p>
-      METBrandVoice est la première compétition artistique dédiée à la voix-off, mettant la publicité au cœur du spectacle. Chaque prestation est jugée en direct par le public. Ici, la publicité devient émotion, performance et engagement !
+        METBrandVoice est la première compétition artistique dédiée à la voix-off, mettant la publicité au cœur du spectacle. Chaque prestation est jugée en direct par le public.
+        Ici, la publicité devient émotion, performance et engagement ! Les candidats s'affrontent sur scène, interprétant des textes publicitaires devant un public en immersion totale.
       </p>
     `
   }));
@@ -41,23 +43,31 @@ export function renderHome(root: HTMLElement | null) {
     }
   ];
   const cards = valeurs.map(val => createCard(val));
+  const valeursContent = [] as HTMLElement[];
+  const imgVal = document.createElement('div');
+  imgVal.className = 'img-placeholder';
+  valeursContent.push(imgVal, createGrid(cards));
   root.appendChild(createSection({
     id: "valeurs",
     title: "Nos valeurs et bénéfices",
-    content: createGrid(cards)
+    content: valeursContent
   }));
 
   // Pour qui ?
+  const cibleList = document.createElement('div');
+  cibleList.innerHTML = `
+    <ul>
+      <li><b>Talents voix-off :</b> révélez votre don et rencontrez des marques prêtes à vous confier leur identité sonore.</li>
+      <li><b>Marques & annonceurs :</b> mesurez l’impact de votre identité par la voix, dans un format participatif et immersif.</li>
+      <li><b>Public :</b> devenez jury, votez en direct, pariez, gagnez et vivez la pub autrement.</li>
+    </ul>
+  `;
+  const cibleImg = document.createElement('div');
+  cibleImg.className = 'img-placeholder';
   root.appendChild(createSection({
     id: "pourqui",
     title: "À qui s'adresse METBrandVoice ?",
-    content: `
-      <ul>
-        <li><b>Talents voix-off :</b> révélez votre don et rencontrez des marques prêtes à vous confier leur identité sonore.</li>
-        <li><b>Marques & annonceurs :</b> mesurez l’impact de votre identité par la voix, dans un format participatif et immersif.</li>
-        <li><b>Public :</b> devenez jury, votez en direct, pariez, gagnez et vivez la pub autrement.</li>
-      </ul>
-    `
+    content: [cibleImg, cibleList]
   }));
 
   // Contact
