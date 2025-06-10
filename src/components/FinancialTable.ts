@@ -66,12 +66,20 @@ export function createFinancialSheet(sheet: FinancialSheet): HTMLElement {
   const tbody = document.createElement('tbody');
   table.appendChild(tbody);
 
-  sheet.rows.forEach(row => {
+  sheet.rows.forEach((row, rowIndex) => {
     const tr = document.createElement('tr');
     row.values.forEach((val, colIndex) => {
       const td = document.createElement('td');
       td.textContent = val;
-      td.className = colIndex > 0 ? 'number' : '';
+      if (row.editable !== false && colIndex > 0) {
+        td.contentEditable = 'true';
+        td.classList.add('editable');
+        td.addEventListener('input', () => {
+          row.values[colIndex] = td.textContent || '';
+          updateAllCalculations();
+        });
+      }
+      if (colIndex > 0) td.classList.add('number');
       tr.appendChild(td);
     });
     tbody.appendChild(tr);
