@@ -1,0 +1,12 @@
+/* styles/variables.css */
+:root {
+  --color-darkblue: #181C2F;
+  --color-gold: #FFC857;
+  --color-white: #FFFFFF;
+  --color-footer: #1e2233;
+  --font-main: 'Montserrat', Arial, sans-serif;
+
+  --radius-xl: 18px;
+  --shadow-lg: 0 6px 28px rgba(0,0,0,0.13);
+}
+
