@@ -9,13 +9,16 @@ function main() {
     return;
   }
 
-  // Simple hash-based routing
-  if (window.location.hash === '' || window.location.hash === '#/' || window.location.hash === '#home') {
+  const hash = window.location.hash;
+
+  if (hash === '#previsionnel') {
+    renderFinancialPlan(root);
+  } else if (hash === '#contact' || hash === '' || hash === '#/' || hash === '#home') {
     renderHome(root);
-  } 
-  else if (window.location.hash === '#previsionnel') {
-      renderFinancialPlan(root);
-    } else {
+    if (hash === '#contact') {
+      setTimeout(() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }), 0);
+    }
+  } else {
     renderNotFound(root);
   }
 }

@@ -5,6 +5,7 @@ import { SectionOptions } from '../types/index.d';
 export function createSection(options: SectionOptions): HTMLElement {
   const section = document.createElement('section');
   section.className = 'section';
+  if (options.className) section.classList.add(options.className);
   if (options.id) section.id = options.id;
 
   section.innerHTML = `<h2>${options.title}</h2>`;

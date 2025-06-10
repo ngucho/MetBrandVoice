@@ -5,6 +5,11 @@ import { CardOptions } from '../types/index.d';
 export function createCard(options: CardOptions): HTMLElement {
   const card = document.createElement('div');
   card.className = 'card';
+  if (options.bgImage) {
+    card.style.backgroundImage = `url(${options.bgImage})`;
+    card.style.backgroundSize = 'cover';
+    card.style.backgroundPosition = 'center';
+  }
   card.innerHTML = `
     <h3>${options.title}</h3>
     <p>${options.content}</p>

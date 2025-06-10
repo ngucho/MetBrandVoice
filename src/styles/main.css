@@ -134,6 +134,32 @@ a:hover { text-decoration: underline; }
   transform: translateY(0);
 }
 
+.section.with-image {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.section.with-image.image-right {
+  flex-direction: row-reverse;
+}
+.section.with-image img {
+  flex: 0 0 35%;
+  width: 35%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-xl);
+}
+.section.with-image > *:not(img) {
+  flex: 1;
+}
+
+.section#concept h2 {
+  font-size: 2.4rem;
+}
+.section#concept p {
+  font-size: 1.2rem;
+}
+
 /* Card and Grid */
 .grid {
   display: flex;
@@ -160,6 +186,26 @@ a:hover { text-decoration: underline; }
   margin-bottom: 0.6rem;
 }
 
+.card-section .grid {
+  align-items: stretch;
+}
+.card-section .card {
+  border: none;
+  color: var(--color-white);
+  box-shadow: 0 4px 18px #0004;
+  flex: 1 1 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 300px;
+}
+.card-section .card h3 {
+  font-size: 1.4rem;
+}
+.card-section .card p {
+  margin-top: auto;
+}
+
 /* Formulaire */
 form#contactForm {
   display: flex;
@@ -182,6 +228,14 @@ form#contactForm input, form#contactForm textarea {
 form#contactForm textarea { min-height: 100px; }
 form#contactForm input:focus, form#contactForm textarea:focus {
   outline: 2px solid var(--color-gold);
+}
+
+.contact-section {
+  text-align: center;
+}
+.contact-section form#contactForm {
+  width: 100%;
+  max-width: 520px;
 }
 
 /* Footer */
