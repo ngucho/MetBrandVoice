@@ -127,7 +127,7 @@ a:hover { text-decoration: underline; }
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 .section:nth-of-type(even) {
-  background: #151515;
+  background: #181818;
 }
 .section.visible {
   opacity: 1;
@@ -270,4 +270,26 @@ form#contactForm input:focus, form#contactForm textarea:focus {
 }
 .financial-table tr:hover td {
   background: #2f2f2f;
+}
+
+/* Tabs */
+.tabs .tab-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.tab-buttons button {
+  background: #222;
+  color: var(--color-white);
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.tab-buttons button.active {
+  background: var(--color-gold);
+  color: var(--color-darkblue);
+}
+.tab-panels > .tab-panel {
+  margin-top: 1rem;
 }

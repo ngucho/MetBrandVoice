@@ -68,20 +68,47 @@ export const financialPlanData: FinancialPlanData = {
 // Calculs automatiques
 export function updateAllCalculations() {
   // Calcule les totaux pour chaque feuille si ligne "TOTAL"
-  financialPlanData.sheets.forEach(sheet => {
+  financialPlanData.sheets.forEach((sheet, sIndex) => {
     if (sheet.title.startsWith("Revenus")) {
       let total = sheet.rows
         .filter(row => row.values[1] && row.editable !== false)
         .reduce((sum, row) => sum + (parseFloat(row.values[1].replace(/\s/g, '').replace(',', '.')) || 0), 0);
       const totalRow = sheet.rows.find(row => row.values[0].toLowerCase().includes('total'));
-      if (totalRow) totalRow.values[1] = total.toLocaleString('fr-FR');
+      if (totalRow) {
+        totalRow.values[1] = total.toLocaleString('fr-FR');
+        const rowIndex = sheet.rows.indexOf(totalRow);
+        const td = document.querySelector<HTMLTableCellElement>(`table[data-sheet-index="${sIndex}"] tbody tr[data-row-index="${rowIndex}"] td[data-col-index="1"]`);
+        if (td) td.textContent = totalRow.values[1];
+      }
     }
     if (sheet.title.startsWith("Coûts")) {
       let total = sheet.rows
         .filter(row => row.values[1] && row.editable !== false)
         .reduce((sum, row) => sum + (parseFloat(row.values[1].replace(/\s/g, '').replace(',', '.')) || 0), 0);
       const totalRow = sheet.rows.find(row => row.values[0].toLowerCase().includes('total'));
-      if (totalRow) totalRow.values[1] = total.toLocaleString('fr-FR');
+      if (totalRow) {
+        totalRow.values[1] = total.toLocaleString('fr-FR');
+        const rowIndex = sheet.rows.indexOf(totalRow);
+        const td = document.querySelector<HTMLTableCellElement>(`table[data-sheet-index="${sIndex}"] tbody tr[data-row-index="${rowIndex}"] td[data-col-index="1"]`);
+        if (td) td.textContent = totalRow.values[1];
+      }
+    }
+    if (sheet.title.startsWith("Scénarios")) {
+      sheet.rows.forEach((row, rIndex) => {
+        const revenus = parseFloat(row.values[1].replace(/\s/g, '').replace(',', '.')) || 0;
+        const couts = parseFloat(row.values[2].replace(/\s/g, '').replace(',', '.')) || 0;
+        const net = revenus - couts;
+        const roi = couts > 0 ? Math.round((net / couts) * 100) : 0;
+        row.values[3] = net.toLocaleString('fr-FR');
+        row.values[4] = roi.toString();
+        const tr = document.querySelector<HTMLTableRowElement>(`table[data-sheet-index="${sIndex}"] tbody tr[data-row-index="${rIndex}"]`);
+        if (tr) {
+          const netCell = tr.querySelector<HTMLTableCellElement>('td[data-col-index="3"]');
+          const roiCell = tr.querySelector<HTMLTableCellElement>('td[data-col-index="4"]');
+          if (netCell) netCell.textContent = row.values[3];
+          if (roiCell) roiCell.textContent = row.values[4];
+        }
+      });
     }
   });
 

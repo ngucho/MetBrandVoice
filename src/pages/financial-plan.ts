@@ -2,7 +2,7 @@
 
 import { createNavbar } from '../components/Navbar';
 import { createFooter } from '../components/Footer';
-import { createFinancialDashboard, createFinancialSheet } from '../components/FinancialTable';
+import { createFinancialDashboard, createFinancialTabs } from '../components/FinancialTable';
 import { financialPlanData, updateAllCalculations } from '../features/financialPlan';
 import { setupSectionObserver } from '../utils/animations';
 
@@ -27,10 +27,8 @@ export function renderFinancialPlan(root: HTMLElement | null) {
   // Résumé visuel/indicateurs
   root.appendChild(createFinancialDashboard(financialPlanData));
 
-  // Tableaux financiers dynamiques
-  financialPlanData.sheets.forEach(sheet =>
-    root.appendChild(createFinancialSheet(sheet))
-  );
+  // Tableaux financiers dynamiques sous forme d'onglets
+  root.appendChild(createFinancialTabs(financialPlanData.sheets));
 
   // Calculs initiaux
   updateAllCalculations();
