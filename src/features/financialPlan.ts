@@ -28,38 +28,38 @@ export const financialPlanData: FinancialPlanData = {
     },
     {
       title: "Revenus (Licences, Partenariats, Digital, Paris…)",
-      columns: ["Poste", "Montant (€/an)", "Justification"],
+      columns: ["Poste", "Prix unitaire", "Quantité", "Montant (€/an)", "Justification"],
       rows: [
-        { values: ["Licences nationales", "800000", "1 pays"], editable: true, removable: true },
-        { values: ["Participation marques", "2000000", "100 marques x 20 000 €"], editable: true, removable: true },
-        { values: ["Votes payants", "250000", "Votes publics"], editable: true, removable: true },
-        { values: ["Sponsoring digital/TV", "350000", "Annonces médias"], editable: true, removable: true },
-        { values: ["Pari & quiz public", "400000", "Paris sur les vainqueurs"], editable: true, removable: true },
-        { values: ["Masterclass, contenus dérivés", "150000", "Ventes digitales"], editable: true, removable: true },
-        { values: ["TOTAL REVENUS", "", ""], editable: false, removable: false }
+        { values: ["Licences nationales", "800000", "1", "800000", "1 pays"], editable: true, removable: true },
+        { values: ["Participation marques", "20000", "100", "2000000", "100 marques x 20 000 €"], editable: true, removable: true },
+        { values: ["Votes payants", "2", "125000", "250000", "Votes publics"], editable: true, removable: true },
+        { values: ["Sponsoring digital/TV", "350000", "1", "350000", "Annonces médias"], editable: true, removable: true },
+        { values: ["Pari & quiz public", "5", "80000", "400000", "Paris sur les vainqueurs"], editable: true, removable: true },
+        { values: ["Masterclass, contenus dérivés", "50", "3000", "150000", "Ventes digitales"], editable: true, removable: true },
+        { values: ["TOTAL REVENUS", "", "", "", ""], editable: false, removable: false }
       ]
     },
     {
       title: "Coûts (Production, Tech, Communication…)",
-      columns: ["Poste", "Montant (€/an)", "Justification"],
+      columns: ["Poste", "Prix unitaire", "Quantité", "Montant (€/an)", "Justification"],
       rows: [
-        { values: ["Production audiovisuelle", "700000", "5 épisodes live"], editable: true, removable: true },
-        { values: ["Coaching talents", "100000", "Coachs voix, media training"], editable: true, removable: true },
-        { values: ["Equipe technique", "300000", "Réalisation, diffusion, plateau"], editable: true, removable: true },
-        { values: ["Marketing, Communication", "200000", "Campagnes & réseaux"], editable: true, removable: true },
-        { values: ["Juridique & Licences", "60000", "INPI, contrats"], editable: true, removable: true },
-        { values: ["Développement digital", "180000", "Plateforme votes, apps"], editable: true, removable: true },
-        { values: ["Divers & imprévus", "60000", "Assurances, frais généraux"], editable: true, removable: true },
-        { values: ["TOTAL COÛTS", "", ""], editable: false, removable: false }
+        { values: ["Production audiovisuelle", "700000", "1", "700000", "5 épisodes live"], editable: true, removable: true },
+        { values: ["Coaching talents", "100000", "1", "100000", "Coachs voix, media training"], editable: true, removable: true },
+        { values: ["Equipe technique", "300000", "1", "300000", "Réalisation, diffusion, plateau"], editable: true, removable: true },
+        { values: ["Marketing, Communication", "200000", "1", "200000", "Campagnes & réseaux"], editable: true, removable: true },
+        { values: ["Juridique & Licences", "60000", "1", "60000", "INPI, contrats"], editable: true, removable: true },
+        { values: ["Développement digital", "180000", "1", "180000", "Plateforme votes, apps"], editable: true, removable: true },
+        { values: ["Divers & imprévus", "60000", "1", "60000", "Assurances, frais généraux"], editable: true, removable: true },
+        { values: ["TOTAL COÛTS", "", "", "", ""], editable: false, removable: false }
       ]
     },
     {
       title: "Scénarios (Optimiste, Réaliste, Pessimiste…)",
       columns: ["Scénario", "Revenus", "Coûts", "Résultat Net", "ROI (%)", "Commentaires"],
       rows: [
-        { values: ["Optimiste", "4 700 000", "1 950 000", "2 750 000", "141", ""], editable: true, removable: true },
-        { values: ["Réaliste", "4 200 000", "1 900 000", "2 300 000", "121", ""], editable: true, removable: true },
-        { values: ["Pessimiste", "3 400 000", "2 050 000", "1 350 000", "66", ""], editable: true, removable: true },
+        { values: ["Optimiste", "", "", "", "", ""], editable: false, removable: false },
+        { values: ["Réaliste", "", "", "", "", ""], editable: false, removable: false },
+        { values: ["Pessimiste", "", "", "", "", ""], editable: false, removable: false },
       ]
     }
   ]
@@ -68,60 +68,93 @@ export const financialPlanData: FinancialPlanData = {
 // Calculs automatiques
 export function updateAllCalculations() {
   // Calcule les totaux pour chaque feuille si ligne "TOTAL"
+  let totalRevenus = 0;
+  let totalCouts = 0;
+
   financialPlanData.sheets.forEach((sheet, sIndex) => {
     if (sheet.title.startsWith("Revenus")) {
-      let total = sheet.rows
-        .filter(row => row.values[1] && row.editable !== false)
-        .reduce((sum, row) => sum + (parseFloat(row.values[1].replace(/\s/g, '').replace(',', '.')) || 0), 0);
+      const nbMarquesRow = financialPlanData.sheets[0].rows.find(r => r.values[0].includes('Nombre de marques'));
+      const nbMarques = parseInt(nbMarquesRow?.values[1] || '0', 10);
+      let total = 0;
+      sheet.rows.forEach((row, rIndex) => {
+        if (row.values[0].includes('Participation marques')) {
+          row.values[2] = nbMarques.toString();
+          const qtyCell = document.querySelector<HTMLTableCellElement>(`table[data-sheet-index="${sIndex}"] tbody tr[data-row-index="${rIndex}"] td[data-col-index="2"]`);
+          if (qtyCell) qtyCell.textContent = row.values[2];
+        }
+        if (row.editable !== false) {
+          const price = parseFloat(row.values[1].replace(/\s/g, '').replace(',', '.')) || 0;
+          const qty = parseFloat(row.values[2].replace(/\s/g, '').replace(',', '.')) || 0;
+          const amount = price * qty;
+          row.values[3] = amount ? amount.toLocaleString('fr-FR') : '';
+          const amountCell = document.querySelector<HTMLTableCellElement>(`table[data-sheet-index="${sIndex}"] tbody tr[data-row-index="${rIndex}"] td[data-col-index="3"]`);
+          if (amountCell) amountCell.textContent = row.values[3];
+          total += amount;
+        }
+      });
       const totalRow = sheet.rows.find(row => row.values[0].toLowerCase().includes('total'));
       if (totalRow) {
-        totalRow.values[1] = total.toLocaleString('fr-FR');
+        totalRow.values[3] = total.toLocaleString('fr-FR');
         const rowIndex = sheet.rows.indexOf(totalRow);
-        const td = document.querySelector<HTMLTableCellElement>(`table[data-sheet-index="${sIndex}"] tbody tr[data-row-index="${rowIndex}"] td[data-col-index="1"]`);
-        if (td) td.textContent = totalRow.values[1];
+        const td = document.querySelector<HTMLTableCellElement>(`table[data-sheet-index="${sIndex}"] tbody tr[data-row-index="${rowIndex}"] td[data-col-index="3"]`);
+        if (td) td.textContent = totalRow.values[3];
       }
+      totalRevenus = total;
     }
     if (sheet.title.startsWith("Coûts")) {
-      let total = sheet.rows
-        .filter(row => row.values[1] && row.editable !== false)
-        .reduce((sum, row) => sum + (parseFloat(row.values[1].replace(/\s/g, '').replace(',', '.')) || 0), 0);
+      let total = 0;
+      sheet.rows.forEach((row, rIndex) => {
+        if (row.editable !== false) {
+          const price = parseFloat(row.values[1].replace(/\s/g, '').replace(',', '.')) || 0;
+          const qty = parseFloat(row.values[2].replace(/\s/g, '').replace(',', '.')) || 0;
+          const amount = price * qty;
+          row.values[3] = amount ? amount.toLocaleString('fr-FR') : '';
+          const amountCell = document.querySelector<HTMLTableCellElement>(`table[data-sheet-index="${sIndex}"] tbody tr[data-row-index="${rIndex}"] td[data-col-index="3"]`);
+          if (amountCell) amountCell.textContent = row.values[3];
+          total += amount;
+        }
+      });
       const totalRow = sheet.rows.find(row => row.values[0].toLowerCase().includes('total'));
       if (totalRow) {
-        totalRow.values[1] = total.toLocaleString('fr-FR');
+        totalRow.values[3] = total.toLocaleString('fr-FR');
         const rowIndex = sheet.rows.indexOf(totalRow);
-        const td = document.querySelector<HTMLTableCellElement>(`table[data-sheet-index="${sIndex}"] tbody tr[data-row-index="${rowIndex}"] td[data-col-index="1"]`);
-        if (td) td.textContent = totalRow.values[1];
+        const td = document.querySelector<HTMLTableCellElement>(`table[data-sheet-index="${sIndex}"] tbody tr[data-row-index="${rowIndex}"] td[data-col-index="3"]`);
+        if (td) td.textContent = totalRow.values[3];
       }
+      totalCouts = total;
     }
     if (sheet.title.startsWith("Scénarios")) {
       sheet.rows.forEach((row, rIndex) => {
-        const revenus = parseFloat(row.values[1].replace(/\s/g, '').replace(',', '.')) || 0;
-        const couts = parseFloat(row.values[2].replace(/\s/g, '').replace(',', '.')) || 0;
+        let revenus = totalRevenus;
+        let couts = totalCouts;
+        if (row.values[0].includes('Pessimiste')) {
+          revenus = Math.round(totalRevenus * 0.75);
+          couts = Math.round(totalCouts * 1.25);
+        } else if (row.values[0].includes('Optimiste')) {
+          revenus = Math.round(totalRevenus * 1.25);
+          couts = Math.round(totalCouts * 0.75);
+        }
+        row.values[1] = revenus.toLocaleString('fr-FR');
+        row.values[2] = couts.toLocaleString('fr-FR');
         const net = revenus - couts;
         const roi = couts > 0 ? Math.round((net / couts) * 100) : 0;
         row.values[3] = net.toLocaleString('fr-FR');
         row.values[4] = roi.toString();
         const tr = document.querySelector<HTMLTableRowElement>(`table[data-sheet-index="${sIndex}"] tbody tr[data-row-index="${rIndex}"]`);
         if (tr) {
-          const netCell = tr.querySelector<HTMLTableCellElement>('td[data-col-index="3"]');
-          const roiCell = tr.querySelector<HTMLTableCellElement>('td[data-col-index="4"]');
-          if (netCell) netCell.textContent = row.values[3];
-          if (roiCell) roiCell.textContent = row.values[4];
+          const cells = tr.querySelectorAll<HTMLTableCellElement>('td');
+          if (cells[1]) cells[1].textContent = row.values[1];
+          if (cells[2]) cells[2].textContent = row.values[2];
+          if (cells[3]) cells[3].textContent = row.values[3];
+          if (cells[4]) cells[4].textContent = row.values[4];
         }
       });
     }
   });
 
   // MAJ dashboard
-  let revenus = 0, couts = 0;
-  const revenusSheet = financialPlanData.sheets.find(s => s.title.startsWith("Revenus"));
-  const coutsSheet = financialPlanData.sheets.find(s => s.title.startsWith("Coûts"));
-  if (revenusSheet) {
-    revenus = revenusSheet.rows.reduce((sum, r) => sum + (parseFloat(r.values[1]?.replace(/\s/g, '').replace(',', '.')) || 0), 0);
-  }
-  if (coutsSheet) {
-    couts = coutsSheet.rows.reduce((sum, r) => sum + (parseFloat(r.values[1]?.replace(/\s/g, '').replace(',', '.')) || 0), 0);
-  }
+  let revenus = totalRevenus;
+  let couts = totalCouts;
   const net = revenus - couts;
   const roi = couts > 0 ? Math.round((net / couts) * 100) : 0;
 

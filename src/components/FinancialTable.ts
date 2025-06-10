@@ -113,8 +113,8 @@ export function createFinancialSheet(sheet: FinancialSheet, index = 0): HTMLElem
       td.dataset.colIndex = String(colIndex);
       td.textContent = val;
       if (row.editable !== false && colIndex > 0) {
-        let editable = true;
-        if (sheet.title.startsWith('Scénarios') && colIndex === 4) editable = false;
+        let editable = colIndex !== 3; // montant n'est pas éditable
+        if (sheet.title.startsWith('Scénarios')) editable = false;
         if (editable) {
           td.contentEditable = 'true';
           td.classList.add('editable');
@@ -134,3 +134,4 @@ export function createFinancialSheet(sheet: FinancialSheet, index = 0): HTMLElem
 
   return container;
 }
+

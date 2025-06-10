@@ -11,6 +11,7 @@ export interface CardOptions {
   title: string;
   content: string;
   bgImage?: string;
+  icon?: string;
 }
 
 export interface ContactFormData {
