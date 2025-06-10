@@ -90,6 +90,35 @@ a:hover { text-decoration: underline; }
   max-width: 600px;
   padding-top: 3rem;
 }
+.hero-content h1 {
+  font-size: 2.6rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.hero-content form {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+.hero-content input[type="email"] {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 6px 0 0 6px;
+}
+.hero-content button.cta {
+  border-radius: 0 6px 6px 0;
+  margin-top: 0;
+}
+.hero-logo {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  width: 80px;
+  height: 80px;
+  z-index: 3;
+}
 
 .img-placeholder {
   background: #1a1a1a;
@@ -177,6 +206,27 @@ a:hover { text-decoration: underline; }
   box-shadow: 0 3px 16px #00000022;
   text-align: center;
   transition: transform .15s;
+  position: relative;
+  overflow: hidden;
+}
+.card.with-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+.card-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.card-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 0.8rem;
+  display: block;
 }
 .card:hover { transform: translateY(-4px) scale(1.03); }
 
@@ -204,6 +254,7 @@ a:hover { text-decoration: underline; }
 }
 .card-section .card p {
   margin-top: auto;
+  font-size: 1.1rem;
 }
 
 /* Formulaire */
@@ -213,6 +264,11 @@ form#contactForm {
   gap: 1.1rem;
   max-width: 480px;
   margin: 0 auto;
+}
+form#contactForm label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 form#contactForm input, form#contactForm textarea {
   border: none;
@@ -226,6 +282,7 @@ form#contactForm input, form#contactForm textarea {
   box-shadow: 0 1.5px 6px #0002;
 }
 form#contactForm textarea { min-height: 100px; }
+form#contactForm label.message textarea { min-height: 140px; }
 form#contactForm input:focus, form#contactForm textarea:focus {
   outline: 2px solid var(--color-gold);
 }
