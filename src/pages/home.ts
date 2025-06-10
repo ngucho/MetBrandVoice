@@ -20,7 +20,7 @@ export function renderHome(root: HTMLElement | null) {
     id: "concept",
     title: "Un concept inédit",
     content: `
-      <img src="/image-01.jpg" alt="Concept" />
+      <img src="/public/assets/img/image-01.png" alt="Concept" />
       <p>
         METBrandVoice est la première compétition artistique dédiée à la voix-off, mettant la publicité au cœur du spectacle. Chaque prestation est jugée en direct par le public.
         Ici, la publicité devient émotion, performance et engagement ! Les candidats s'affrontent sur scène, interprétant des textes publicitaires devant un public en immersion totale.
@@ -46,7 +46,7 @@ export function renderHome(root: HTMLElement | null) {
   const cards = valeurs.map(val => createCard(val));
   const valeursContent = [] as HTMLElement[];
   const imgVal = document.createElement('img');
-  imgVal.src = '/image-02.jpg';
+  imgVal.src = '/public/assets/img/image-02.png';
   imgVal.alt = 'Valeurs';
   valeursContent.push(imgVal, createGrid(cards));
   root.appendChild(createSection({
@@ -65,7 +65,7 @@ export function renderHome(root: HTMLElement | null) {
     </ul>
   `;
   const cibleImg = document.createElement('img');
-  cibleImg.src = '/image-03.jpg';
+  cibleImg.src = '/public/assets/img/image-03.png';
   cibleImg.alt = 'Cible';
   root.appendChild(createSection({
     id: "pourqui",
