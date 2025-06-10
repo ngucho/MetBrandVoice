@@ -119,15 +119,15 @@ a:hover { text-decoration: underline; }
 
 /* Section */
 .section {
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 2.5rem 2rem;
-  background: #111111ee;
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg);
+  width: 100%;
+  padding: 3.5rem 2rem;
+  background: #111;
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.section:nth-of-type(even) {
+  background: #151515;
 }
 .section.visible {
   opacity: 1;
@@ -195,7 +195,25 @@ form#contactForm input:focus, form#contactForm textarea:focus {
   font-size: 1rem;
 }
 
-.financial-table td, .financial-table th {
+.financial-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+.financial-table th,
+.financial-table td {
+  padding: 0.6rem 1rem;
+  border: 1px solid #2b2b2b;
   min-width: 90px;
   vertical-align: middle;
+}
+.financial-table tbody tr:nth-child(odd) {
+  background: #202020;
+}
+.financial-table td.editable {
+  background: #262626;
+  cursor: text;
+}
+.financial-table tr:hover td {
+  background: #2f2f2f;
 }
