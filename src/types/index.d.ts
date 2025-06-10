@@ -4,11 +4,14 @@ export interface SectionOptions {
   id?: string;
   title: string;
   content: string | HTMLElement | HTMLElement[];
+  className?: string;
 }
 
 export interface CardOptions {
   title: string;
   content: string;
+  bgImage?: string;
+  icon?: string;
 }
 
 export interface ContactFormData {

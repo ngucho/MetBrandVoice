@@ -12,7 +12,7 @@ export function createContactForm(): HTMLElement {
       <span>Email</span>
       <input type="email" name="email" placeholder="Email" required />
     </label>
-    <label>
+    <label class="message">
       <span>Votre message</span>
       <textarea name="message" placeholder="Votre message" required></textarea>
     </label>
