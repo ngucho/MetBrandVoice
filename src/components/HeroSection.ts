@@ -4,10 +4,13 @@ export function createHeroSection(): HTMLElement {
   const section = document.createElement('section');
   section.className = 'hero';
   section.innerHTML = `
-    <h1>METBrandVoice</h1>
-    <h2>La plus belle voix de marque</h2>
-    <p>Le show qui transforme la publicité en art, révélant les talents voix-off et offrant aux marques une scène émotionnelle unique.</p>
-    <button class="cta" id="hero-contact-btn">Contactez-nous</button>
+    <div class="hero-content">
+      <h1>METBrandVoice</h1>
+      <h2>La plus belle voix de marque</h2>
+      <p>Le show qui transforme la publicité en art, révélant les talents voix-off et offrant aux marques une scène émotionnelle unique.</p>
+      <button class="cta" id="hero-contact-btn">Contactez-nous</button>
+    </div>
+    <div class="hero-image img-placeholder"></div>
   `;
   // Add event listener for smooth scroll
   setTimeout(() => {
